@@ -1,4 +1,4 @@
-TECNOLOGIAS: teste
+TECNOLOGIAS:
 
 Instalando express:
 
