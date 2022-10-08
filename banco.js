@@ -16,6 +16,13 @@ async function listarClientes(){
     return rows;  
 }
 
+async function buscarCliente(id){
+    const conexao = await connect();
+    const [rows] = await conexao.query('SELECT * FROM cliente where idcliente = ?;',[id]);
+    return rows;  
+}
+
+
 
 async function insertCliente(dado){
     const conexao = await connect();
@@ -25,22 +32,5 @@ async function insertCliente(dado){
 }
 
 
-// function listarClientes(){
-//     var clientes=[ 
-//         {   nome:"Thiago",
-//             cpf: "123132132"
-//         }, 
-//         {   nome:"Marciete",
-//             cpf: "123132132"
-//         },
-//         {   nome:"Leticia",
-//             cpf: "123132132"
-//         },
-//         {  nome:"Carine",
-//             cpf: "123132132"
-//         }
-//     ]
-//     return clientes;
-// }
 
-module.exports={listarClientes,insertCliente}
+module.exports={listarClientes,insertCliente,buscarCliente}

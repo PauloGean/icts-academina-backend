@@ -38,7 +38,13 @@ server.post('/cliente', function (request, response) {
     var dados= request.body
     console.log(dados)
     banco.insertCliente(dados).then((d)=>{
-        response.send(d);
+        console.log(d[0])
+        var id = d[0]['insertId']
+            console.log(id)
+
+        banco.buscarCliente(id).then((cliente)=>{
+            response.send(cliente[0]);
+        });
     })  
 });
 
