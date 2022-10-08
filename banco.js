@@ -17,6 +17,14 @@ async function listarClientes(){
 }
 
 
+async function insertCliente(dado){
+    const conexao = await connect();
+    const sql = 'INSERT INTO cliente(nome,cpf) VALUES (?,?)';
+    const values = [dado.nome, dado.cpf];
+    return await conexao.query(sql, values);
+}
+
+
 // function listarClientes(){
 //     var clientes=[ 
 //         {   nome:"Thiago",
@@ -35,4 +43,4 @@ async function listarClientes(){
 //     return clientes;
 // }
 
-module.exports={listarClientes}
+module.exports={listarClientes,insertCliente}
