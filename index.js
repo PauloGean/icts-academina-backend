@@ -1,9 +1,11 @@
 const express = require('express')
+var cors = require('cors')
 const banco = require('./banco.js')
 
 const port=3005
 var server = express();
 server.use(express.json())
+server.use(cors())
 
 server.get('/', function (request, response) {
     response.send('Olá, Mundo!');
