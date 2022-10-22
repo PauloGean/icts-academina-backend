@@ -2,7 +2,7 @@ const express = require('express')
 var cors = require('cors')
 const banco = require('./banco.js')
 
-const port=3005
+const port = 3005
 var server = express();
 server.use(express.json())
 server.use(cors())
@@ -31,24 +31,50 @@ server.post('/nome', function (request, response) {
 });
 
 server.get('/cliente', function (request, response) {
-    banco.listarClientes().then((d)=>{
+    banco.listarClientes().then((d) => {
         response.send(d);
-    })    
+    })
 });
 
 server.post('/cliente', function (request, response) {
-    var dados= request.body
+    var dados = request.body
     console.log(dados)
-    banco.insertCliente(dados).then((d)=>{
+    banco.insertCliente(dados).then((d) => {
         console.log(d[0])
         var id = d[0]['insertId']
-            console.log(id)
+        console.log(id)
 
-        banco.buscarCliente(id).then((cliente)=>{
+        banco.buscarCliente(id).then((cliente) => {
             response.send(cliente[0]);
         });
-    })  
+    })
 });
+
+server.get('/cliente/:id', function (request, response) {
+    var id = request.params.id
+    banco.buscarCliente(id).then((cliente) => {
+        response.send(cliente[0]);
+    });
+});
+
+
+server.put('/cliente/:id', function (request, response) {
+    var id = request.params.id
+    var dados = request.body
+    banco.updateCliente(id,dados).then((cliente) => {
+        banco.buscarCliente(id).then((cliente) => {
+            response.send(cliente[0]);
+        });
+    });
+});
+
+server.delete('/cliente/:id', function (request, response) {
+    var id = request.params.id
+    banco.deleteCliente(id).then((cliente) => {
+        response.send({});
+    });
+});
+
 
 
 server.listen(port, function () {
