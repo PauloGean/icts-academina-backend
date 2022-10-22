@@ -76,6 +76,55 @@ server.delete('/cliente/:id', function (request, response) {
 });
 
 
+// CURSO
+
+server.get('/curso', function (request, response) {
+    banco.listarCurso().then((d) => {
+        response.send(d);
+    })
+});
+
+
+server.post('/curso', function (request, response) {
+    var dados = request.body
+    console.log(dados)
+    banco.insertCurso(dados).then((d) => {
+        console.log(d[0])
+        var id = d[0]['insertId']
+        console.log(id)
+
+        banco.buscarCurso(id).then((c) => {
+            response.send(c[0]);
+        });
+    })
+});
+
+
+server.get('/curso/:id', function (request, response) {
+    var id = request.params.id
+    banco.buscarCurso(id).then((cliente) => {
+        response.send(cliente[0]);
+    });
+});
+
+server.put('/curso/:id', function (request, response) {
+    var id = request.params.id
+    var dados = request.body
+    banco.updateCurso(id,dados).then((cliente) => {
+        banco.buscarCurso(id).then((cliente) => {
+            response.send(cliente[0]);
+        });
+    });
+ 
+});
+
+server.delete('/curso/:id', function (request, response) {
+    var id = request.params.id
+    banco.deleteCurso(id).then((c) => {
+        response.send({});
+    });
+});
+
 
 server.listen(port, function () {
     console.log("rodando na porta " + port)
