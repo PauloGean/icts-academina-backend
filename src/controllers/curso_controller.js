@@ -2,7 +2,7 @@
 const cursoDao = require('../dao/curso_dao')
 
 function listarCursos(request, response) {
-    cursoDao.listarCurso().then((d) => {
+    cursoDao.getAll().then((d) => {
         response.send(d);
     })
 }
@@ -10,12 +10,12 @@ function listarCursos(request, response) {
 function inserirCurso(request, response) {
     var dados = request.body
     console.log(dados)
-    cursoDao.insertCurso(dados).then((d) => {
+    cursoDao.create(dados).then((d) => {
         console.log(d[0])
         var id = d[0]['insertId']
         console.log(id)
 
-        cursoDao.buscarCurso(id).then((c) => {
+        cursoDao.findById(id).then((c) => {
             response.send(c[0]);
         });
     })
@@ -23,7 +23,7 @@ function inserirCurso(request, response) {
 
 function buscarCurso(request, response) {
     var id = request.params.id
-    cursoDao.buscarCurso(id).then((cliente) => {
+    cursoDao.findById(id).then((cliente) => {
         response.send(cliente[0]);
     });
 }
@@ -31,8 +31,8 @@ function buscarCurso(request, response) {
 function atualizarCurso(request, response) {
     var id = request.params.id
     var dados = request.body
-    cursoDao.updateCurso(id,dados).then((cliente) => {
-        cursoDao.buscarCurso(id).then((cliente) => {
+    cursoDao.update(id,dados).then((cliente) => {
+        cursoDao.findById(id).then((cliente) => {
             response.send(cliente[0]);
         });
     });
@@ -41,7 +41,7 @@ function atualizarCurso(request, response) {
 
 function deletarCurso(request, response) {
     var id = request.params.id
-    cursoDao.deleteCurso(id).then((c) => {
+    cursoDao.remove(id).then((c) => {
         response.send({});
     });
 }

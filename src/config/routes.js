@@ -9,15 +9,15 @@ appRoutes.get('/sobre', homeController.getSobre)
 // CLIENTE
 appRoutes.get('/cliente', clienteControler.listarClientes)
 appRoutes.post('/cliente', clienteControler.inserirCliente)
-appRoutes.put('/cliente', clienteControler.atualizarCliente)
-appRoutes.delete('/cliente', clienteControler.deletarCliente)
+appRoutes.put('/cliente/:id', clienteControler.atualizarCliente)
+appRoutes.delete('/cliente/:id', clienteControler.deletarCliente)
 appRoutes.get('/cliente/:id', clienteControler.buscarCliente)
 
 // CURSO
 appRoutes.get('/curso', cursoControler.listarCursos)
 appRoutes.post('/curso', cursoControler.inserirCurso)
-appRoutes.put('/curso', cursoControler.atualizarCurso)
-appRoutes.delete('/curso', cursoControler.deletarCurso)
+appRoutes.put('/curso/:id', cursoControler.atualizarCurso)
+appRoutes.delete('/curso/:id', cursoControler.deletarCurso)
 appRoutes.get('/curso/:id', cursoControler.buscarCurso)
 
 module.exports = appRoutes

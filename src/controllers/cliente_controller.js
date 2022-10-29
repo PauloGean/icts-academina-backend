@@ -2,7 +2,7 @@
 const clienteDao = require('../dao/cliente_dao')
 
 function listarClientes(request, response) {
-    clienteDao.listarClientes().then((d) => {
+    clienteDao.getAll().then((d) => {
         response.send(d);
     })
 }
@@ -10,12 +10,12 @@ function listarClientes(request, response) {
 function inserirCliente(request, response) {
     var dados = request.body
     console.log(dados)
-    clienteDao.insertCliente(dados).then((d) => {
+    clienteDao.create(dados).then((d) => {
         console.log(d[0])
         var id = d[0]['insertId']
         console.log(id)
 
-        clienteDao.buscarCliente(id).then((cliente) => {
+        clienteDao.findById(id).then((cliente) => {
             response.send(cliente[0]);
         });
     })
@@ -23,7 +23,7 @@ function inserirCliente(request, response) {
 
 function buscarCliente(request, response) {
     var id = request.params.id
-    clienteDao.buscarCliente(id).then((cliente) => {
+    clienteDao.findById(id).then((cliente) => {
         response.send(cliente[0]);
     });
 }
@@ -31,8 +31,8 @@ function buscarCliente(request, response) {
 function atualizarCliente(request, response) {
     var id = request.params.id
     var dados = request.body
-    clienteDao.updateCliente(id, dados).then((cliente) => {
-        clienteDao.buscarCliente(id).then((cliente) => {
+    clienteDao.update(id, dados).then((cliente) => {
+        clienteDao.findById(id).then((cliente) => {
             response.send(cliente[0]);
         });
     });
@@ -41,7 +41,7 @@ function atualizarCliente(request, response) {
 
 function deletarCliente(request, response) {
     var id = request.params.id
-    clienteDao.deleteCliente(id).then((cliente) => {
+    clienteDao.remove(id).then((cliente) => {
         response.send({});
     });
 }
