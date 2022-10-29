@@ -1,13 +1,13 @@
 
 const clienteDao = require('../dao/cliente_dao')
 
-function listarClientes(request, response) {
+function getAll(request, response) {
     clienteDao.getAll().then((d) => {
         response.send(d);
     })
 }
 
-function inserirCliente(request, response) {
+function create(request, response) {
     var dados = request.body
     console.log(dados)
     clienteDao.create(dados).then((d) => {
@@ -21,14 +21,14 @@ function inserirCliente(request, response) {
     })
 }
 
-function buscarCliente(request, response) {
+function findById(request, response) {
     var id = request.params.id
     clienteDao.findById(id).then((cliente) => {
         response.send(cliente[0]);
     });
 }
 
-function atualizarCliente(request, response) {
+function update(request, response) {
     var id = request.params.id
     var dados = request.body
     clienteDao.update(id, dados).then((cliente) => {
@@ -39,11 +39,11 @@ function atualizarCliente(request, response) {
 }
 
 
-function deletarCliente(request, response) {
+function remove(request, response) {
     var id = request.params.id
     clienteDao.remove(id).then((cliente) => {
         response.send({});
     });
 }
 
-module.exports={listarClientes,inserirCliente,buscarCliente,atualizarCliente,deletarCliente }
+module.exports={ getAll, create, findById, update, remove }

@@ -1,13 +1,13 @@
 
 const cursoDao = require('../dao/curso_dao')
 
-function listarCursos(request, response) {
+function getAll(request, response) {
     cursoDao.getAll().then((d) => {
         response.send(d);
     })
 }
 
-function inserirCurso(request, response) {
+function create(request, response) {
     var dados = request.body
     console.log(dados)
     cursoDao.create(dados).then((d) => {
@@ -21,14 +21,14 @@ function inserirCurso(request, response) {
     })
 }
 
-function buscarCurso(request, response) {
+function findById(request, response) {
     var id = request.params.id
     cursoDao.findById(id).then((cliente) => {
         response.send(cliente[0]);
     });
 }
 
-function atualizarCurso(request, response) {
+function update(request, response) {
     var id = request.params.id
     var dados = request.body
     cursoDao.update(id,dados).then((cliente) => {
@@ -39,11 +39,11 @@ function atualizarCurso(request, response) {
 }
 
 
-function deletarCurso(request, response) {
+function remove(request, response) {
     var id = request.params.id
     cursoDao.remove(id).then((c) => {
         response.send({});
     });
 }
 
-module.exports={listarCursos,inserirCurso,buscarCurso,atualizarCurso,deletarCurso }
+module.exports={ getAll, create, findById, update, remove }

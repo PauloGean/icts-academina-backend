@@ -7,17 +7,16 @@ const cursoControler =  require('../controllers/curso_controller')
 appRoutes.get('/', homeController.getIndex)
 appRoutes.get('/sobre', homeController.getSobre)
 // CLIENTE
-appRoutes.get('/cliente', clienteControler.listarClientes)
-appRoutes.post('/cliente', clienteControler.inserirCliente)
-appRoutes.put('/cliente/:id', clienteControler.atualizarCliente)
-appRoutes.delete('/cliente/:id', clienteControler.deletarCliente)
-appRoutes.get('/cliente/:id', clienteControler.buscarCliente)
+appRoutes.get('/cliente', clienteControler.getAll)
+appRoutes.post('/cliente', clienteControler.create)
+appRoutes.put('/cliente/:id', clienteControler.update)
+appRoutes.delete('/cliente/:id', clienteControler.remove)
+appRoutes.get('/cliente/:id', clienteControler.findById)
 
 // CURSO
-appRoutes.get('/curso', cursoControler.listarCursos)
-appRoutes.post('/curso', cursoControler.inserirCurso)
-appRoutes.put('/curso/:id', cursoControler.atualizarCurso)
-appRoutes.delete('/curso/:id', cursoControler.deletarCurso)
-appRoutes.get('/curso/:id', cursoControler.buscarCurso)
-
+appRoutes.get('/curso', cursoControler.getAll)
+appRoutes.post('/curso', cursoControler.create)
+appRoutes.put('/curso/:id', cursoControler.update)
+appRoutes.delete('/curso/:id', cursoControler.remove)
+appRoutes.get('/curso/:id', cursoControler.findById)
 module.exports = appRoutes
