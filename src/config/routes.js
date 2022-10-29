@@ -9,18 +9,18 @@ appRoutes.get('/', homeControlller.getIndex)
 appRoutes.get('/sobre', homeControlller.getSobre)
 
 //CLIENTE
-appRoutes.get('/cliente', clienteControlller.listarClientes)
-appRoutes.post('/cliente', clienteControlller.inserirCliente)
-appRoutes.put('/cliente', clienteControlller.atualizarCliente)
-appRoutes.delete('/cliente', clienteControlller.deletarCliente)
-appRoutes.get('/cliente/:id', clienteControlller.buscarCliente)
+appRoutes.get('/cliente', clienteControlller.getAll)
+appRoutes.post('/cliente', clienteControlller.create)
+appRoutes.put('/cliente', clienteControlller.update)
+appRoutes.delete('/cliente/:id', clienteControlller.remove)
+appRoutes.get('/cliente/:id', clienteControlller.findyById)
 
 //CURSO
-appRoutes.get('/curso', cursoControlller.listarCurso)
-appRoutes.post('/curso', cursoControlller.inserirCurso)
-appRoutes.put('/curso', cursoControlller.atualizarCurso)
-appRoutes.delete('/curso', cursoControlller.deletarCurso)
-appRoutes.get('/curso/:id', cursoControlller.buscarCurso)
+appRoutes.get('/curso', cursoControlller.getAll)
+appRoutes.post('/curso', cursoControlller.create)
+appRoutes.put('/curso/:id', cursoControlller.update)
+appRoutes.delete('/curso/:id', cursoControlller.remove)
+appRoutes.get('/curso/:id', cursoControlller.findyById)
 
 
 module.exports = appRoutes
