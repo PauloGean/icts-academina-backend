@@ -15,25 +15,25 @@ function create(request, response) {
         var id = d[0]['insertId']
         console.log(id)
 
-        funcionarioDao.findById(id).then((cliente) => {
-            response.send(cliente[0]);
+        funcionarioDao.findById(id).then((result) => {
+            response.send(result[0]);
         });
     })
 }
 
 function findById(request, response) {
     var id = request.params.id
-    funcionarioDao.findById(id).then((cliente) => {
-        response.send(cliente[0]);
+    funcionarioDao.findById(id).then((result) => {
+        response.send(result[0]);
     });
 }
 
 function update(request, response) {
     var id = request.params.id
     var dados = request.body
-    funcionarioDao.update(id, dados).then((cliente) => {
-        funcionarioDao.findById(id).then((cliente) => {
-            response.send(cliente[0]);
+    funcionarioDao.update(id, dados).then((result) => {
+        funcionarioDao.findById(id).then((result) => {
+            response.send(result[0]);
         });
     });
 }
@@ -41,7 +41,7 @@ function update(request, response) {
 
 function remove(request, response) {
     var id = request.params.id
-    funcionarioDao.remove(id).then((cliente) => {
+    funcionarioDao.remove(id).then((result) => {
         response.send({});
     });
 }
