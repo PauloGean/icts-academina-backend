@@ -3,6 +3,7 @@ const appRoutes = express.Router();
 const homeController = require('../controllers/home_controller')
 const clienteControler =  require('../controllers/cliente_controller')
 const funcionarioControler =  require('../controllers/funcionario_controller')
+const matriculaControler =  require('../controllers/matricula_controller')
 
 const cursoControler =  require('../controllers/curso_controller')
 
@@ -30,5 +31,13 @@ appRoutes.put('/funcionario/:id', funcionarioControler.update)
 appRoutes.delete('/funcionario/:id', funcionarioControler.remove)
 appRoutes.get('/funcionario/:id', funcionarioControler.findById)
 
+
+//MATRICULA
+
+appRoutes.get('/matricula', matriculaControler.getAll)
+appRoutes.post('/matricula', matriculaControler.create)
+appRoutes.put('/matricula/:id', matriculaControler.update)
+appRoutes.delete('/matricula/:id', matriculaControler.remove)
+appRoutes.get('/matricula/:id', matriculaControler.findById)
 
 module.exports = appRoutes
