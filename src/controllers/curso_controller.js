@@ -9,7 +9,7 @@ function getAll(request, response) {
 
 function create(request, response) {
     var dados = request.body
-    console.log(dados)
+    validade(response,dados)
     cursoDao.create(dados).then((d) => {
         console.log(d[0])
         var id = d[0]['insertId']
@@ -28,9 +28,19 @@ function findById(request, response) {
     });
 }
 
+function validade(response,dados){
+    if (dados.nome=='exemplo'){
+        response.statusCode = 500;
+        const msgErro={"message":"Nome inválido"}
+        response.send(msgErro);
+    }
+}
+
 function update(request, response) {
     var id = request.params.id
     var dados = request.body
+
+    validade(response,dados)
     cursoDao.update(id,dados).then((cliente) => {
         cursoDao.findById(id).then((cliente) => {
             response.send(cliente[0]);

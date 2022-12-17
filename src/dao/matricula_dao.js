@@ -2,13 +2,24 @@ const { connect } = require("../config/db");
 
 async function getAll(){
     const conexao = await connect();
-    const [rows] = await conexao.query('SELECT * FROM matricula;');
+    const [rows] = await conexao.query(
+    'select m.idmatricula,  m.idcliente, m.idcurso, ' +
+    'c.nome as nome_curso,c.descricao as descricao_curso,'+
+    'cli.nome as nome_cliente,cli.cpf '+
+    'from matricula m '+
+    'join curso c on m.idcurso=c.idcurso ' +
+    'join cliente cli on m.idcliente=cli.idcliente ;');
     return rows;  
 }
 
 async function findById(id){
     const conexao = await connect();
-    const [rows] = await conexao.query('SELECT * FROM matricula where idmatricula = ?;',[id]);
+    const [rows] = await conexao.query('select m.idmatricula,  m.idcliente, m.idcurso, ' +
+    'c.nome as nome_curso,c.descricao as descricao_curso,'+
+    'cli.nome as nome_cliente,cli.cpf '+
+    'from matricula m '+
+    'join curso c on m.idcurso=c.idcurso ' +
+    'join cliente cli on m.idcliente=cli.idcliente  where idmatricula = ?;',[id]);
     return rows;  
 }
 
