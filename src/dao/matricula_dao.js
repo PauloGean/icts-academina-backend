@@ -23,7 +23,7 @@ async function create(dado){
 
 async function update(id, dado){
     const conexao = await connect();
-    const sql = 'UPDATE curso SET idcurso=?, idcliente=? WHERE idmatricula =?';
+    const sql = 'UPDATE matricula SET idcurso=?, idcliente=? WHERE idmatricula =?';
     const values = [dado.idcurso, dado.idcliente, id];
     return await conexao.query(sql, values);
 }

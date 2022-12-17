@@ -32,7 +32,7 @@ function update(request, response) {
     var id = request.params.id
     var dados = request.body
     matriculaDao.update(id,dados).then((cliente) => {
-        cursoDao.findById(id).then((cliente) => {
+        matriculaDao.findById(id).then((cliente) => {
             response.send(cliente[0]);
         });
     });
