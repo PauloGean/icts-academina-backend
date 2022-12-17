@@ -2,14 +2,21 @@
 const cursoDao = require('../dao/curso_dao')
 
 function getAll(request, response) {
+
     cursoDao.getAll().then((d) => {
         response.send(d);
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     })
+
+
 }
 
 function create(request, response) {
     var dados = request.body
-    if (validate(response, dados)) {
+    try {
         cursoDao.create(dados).then((d) => {
             console.log(d[0])
             var id = d[0]['insertId']
@@ -18,7 +25,15 @@ function create(request, response) {
             cursoDao.findById(id).then((c) => {
                 response.send(c[0]);
             });
+        }).catch((e) => {
+            response.statusCode = 500;
+            const msgErro = { "message": e }
+            response.send(msgErro);
         })
+    }catch(erro){
+        response.statusCode = 500;
+        const msgErro = { "message": erro }
+        response.send(msgErro);
     }
 
 }
@@ -27,46 +42,48 @@ function findById(request, response) {
     var id = request.params.id
     cursoDao.findById(id).then((cliente) => {
         response.send(cliente[0]);
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     });
 }
 
-function validate(response, dados) {
+function validate(dados) {
     if (dados.nome == 'exemplo') {
-        response.statusCode = 500;
-        const msgErro = { "message": "Nome inválido" }
-        response.send(msgErro);
-        return false
+        throw "Nome inválido" 
     }
 
-    if (!dados.nome){
-        response.statusCode = 500;
-        const msgErro = { "message": "Nome não pode ser vazio" }
-        response.send(msgErro);
-        return false
+    if (!dados.nome) {
+        throw  "Nome não pode ser vazio" 
     }
 
-    if (!dados.descricao){
-        response.statusCode = 500;
-        const msgErro = { "message": "Descricao não pode ser vazia" }
-        response.send(msgErro);
-        return false
+    if (!dados.descricao) {
+        throw  "Descricao não pode ser vazia" 
     }
-
-    return true
 }
 
 function update(request, response) {
     var id = request.params.id
     var dados = request.body
-
-    if (validate(response, dados)) {
-
+    try {
+        validate(dados)
         cursoDao.update(id, dados).then((cliente) => {
             cursoDao.findById(id).then((cliente) => {
                 response.send(cliente[0]);
             });
+        }).catch((e) => {
+            response.statusCode = 500;
+            const msgErro = { "message": e }
+            response.send(msgErro);
         });
+
+    } catch (erro) {
+        response.statusCode = 500;
+        const msgErro = { "message": erro }
+        response.send(msgErro);
     }
+
 }
 
 
@@ -74,6 +91,10 @@ function remove(request, response) {
     var id = request.params.id
     cursoDao.remove(id).then((c) => {
         response.send({});
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     });
 }
 

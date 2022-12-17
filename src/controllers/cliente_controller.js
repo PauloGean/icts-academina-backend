@@ -25,6 +25,10 @@ function findById(request, response) {
     var id = request.params.id
     clienteDao.findById(id).then((cliente) => {
         response.send(cliente[0]);
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     });
 }
 
@@ -35,6 +39,10 @@ function update(request, response) {
         clienteDao.findById(id).then((cliente) => {
             response.send(cliente[0]);
         });
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     });
 }
 
@@ -43,6 +51,10 @@ function remove(request, response) {
     var id = request.params.id
     clienteDao.remove(id).then((cliente) => {
         response.send({});
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     });
 }
 

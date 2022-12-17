@@ -21,6 +21,10 @@ function getAll(request, response) {
     } 
 
         response.send(listMatriculas);
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     })
 }
 
@@ -35,6 +39,10 @@ function create(request, response) {
         matriculaDao.findById(id).then((c) => {
             response.send(c[0]);
         });
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     })
 }
 
@@ -51,6 +59,10 @@ function findById(request, response) {
         delete matricula['nome_curso']
         delete matricula['cpf']
         response.send(matricula);
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     });
 }
 
@@ -61,6 +73,10 @@ function update(request, response) {
         matriculaDao.findById(id).then((cliente) => {
             response.send(cliente[0]);
         });
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     });
 }
 
@@ -69,6 +85,10 @@ function remove(request, response) {
     var id = request.params.id
     matriculaDao.remove(id).then((c) => {
         response.send({});
+    }).catch((e) => {
+        response.statusCode = 500;
+        const msgErro = { "message": e }
+        response.send(msgErro);
     });
 }
 

@@ -2,7 +2,7 @@ const { connect } = require("../config/db");
 
 async function getAll(){
     const conexao = await connect();
-    const [rows] = await conexao.query('SELECT * FROM curso;');
+    const [rows] = await conexao.query('SELECT * FROM curso');
     return rows;  
 }
 
