@@ -1,7 +1,7 @@
-const clienteDao = require('../dao/cliente_dao')
+const funcionarioDao = require('../dao/matricula_dao')
 
 function getAll(request, response) {
-    clienteDao.getAll().then((d)=>{
+    funcionarioDao.getAll().then((d)=>{
         response.send(d);
     })    
 }
@@ -9,21 +9,21 @@ function getAll(request, response) {
 function create(request, response){
     var dados= request.body
     console.log(dados)
-    clienteDao.create(dados).then((d)=>{
+    funcionarioDao.create(dados).then((d)=>{
         console.log(d[0])
         var id = d[0]['insertId']
             console.log(id)
 
-        clienteDao.findbyId(id).then((cliente)=>{
-            response.send(cliente[0]);
+        funcionarioDao.findbyId(id).then((result)=>{
+            response.send(result[0]);
         });
     })
 }
 
 function findbyId (request, response) {
     var id = request.params.id
-    clienteDao.findbyId(id).then((cliente)=>{
-        response.send(cliente[0]);
+    funcionarioDao.findbyId(id).then((result)=>{
+        response.send(result[0]);
     });
 
 }
@@ -31,9 +31,9 @@ function findbyId (request, response) {
 function update (request, response) {
     var id = request.params.id
     var dados = request.body
-    clienteDao.update(id,dados).then((cliente)=>{
-        clienteDao.findbyId(id).then((cliente)=>{
-            response.send(cliente[0]);
+    funcionarioDao.update(id,dados).then((result)=>{
+        funcionarioDao.findbyId(id).then((result)=>{
+            response.send(result[0]);
         });
 
     });
@@ -42,7 +42,7 @@ function update (request, response) {
 
 function remove (request, response) {
         var id = request.params.id
-        clienteDao.remove(id).then(()=> {
+        funcionarioDao.remove(id).then(()=> {
             response.send({});
         });
     }

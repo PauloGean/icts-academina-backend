@@ -1,7 +1,7 @@
-const cursoDao = require('../dao/curso_dao')
+const matriculaDao = require('../dao/matricula_dao')
 
 function getAll(request, response) {
-    cursoDao.getAll().then((d)=>{
+    matriculaDao.getAll().then((d)=>{
         response.send(d);
     })  
 }
@@ -9,12 +9,12 @@ function getAll(request, response) {
 function create(request, response){
     var dados= request.body
     console.log(dados)
-    cursoDao.create(dados).then((d)=>{
+    matriculaDao.create(dados).then((d)=>{
         console.log(d[0])
         var id = d[0]['insertId']
             console.log(id)
 
-        cursoDao.findbyId(id).then((curso)=>{
+        matriculaDao.findbyId(id).then((curso)=>{
             response.send(curso[0]);
         });
     }) 
@@ -22,7 +22,7 @@ function create(request, response){
 
 function findbyId (request, response) {
     var id = request.params.id
-    cursoDao.findbyId(id).then((curso)=>{
+    matriculaDao.findbyId(id).then((curso)=>{
         response.send(curso[0]);
     })  
 
@@ -31,8 +31,8 @@ function findbyId (request, response) {
 function update (request, response) {
     var id = request.params.id
     var dados = request.body
-    cursoDao.update(id,dados).then((curso)=>{
-        cursoDao.findbyId(id).then((curso)=>{
+    matriculaDao.update(id,dados).then((curso)=>{
+        matriculaDao.findbyId(id).then((curso)=>{
             response.send(curso[0]);
         });
 
@@ -41,7 +41,7 @@ function update (request, response) {
 
 function remove(request, response) {
     var id = request.params.id
-    cursoDao.remove(id).then(()=> {
+    matriculaDao.remove(id).then(()=> {
         response.send({});
     });   
 }
