@@ -9,7 +9,7 @@ function getAll(request, response) {
 
 function create(request, response) {
     var dados = request.body
-    if (validade(response, dados)) {
+    if (validate(response, dados)) {
         cursoDao.create(dados).then((d) => {
             console.log(d[0])
             var id = d[0]['insertId']
@@ -30,10 +30,24 @@ function findById(request, response) {
     });
 }
 
-function validade(response, dados) {
+function validate(response, dados) {
     if (dados.nome == 'exemplo') {
         response.statusCode = 500;
         const msgErro = { "message": "Nome inválido" }
+        response.send(msgErro);
+        return false
+    }
+
+    if (!dados.nome){
+        response.statusCode = 500;
+        const msgErro = { "message": "Nome não pode ser vazio" }
+        response.send(msgErro);
+        return false
+    }
+
+    if (!dados.descricao){
+        response.statusCode = 500;
+        const msgErro = { "message": "Descricao não pode ser vazia" }
         response.send(msgErro);
         return false
     }
@@ -45,7 +59,7 @@ function update(request, response) {
     var id = request.params.id
     var dados = request.body
 
-    if (validade(response, dados)) {
+    if (validate(response, dados)) {
 
         cursoDao.update(id, dados).then((cliente) => {
             cursoDao.findById(id).then((cliente) => {
