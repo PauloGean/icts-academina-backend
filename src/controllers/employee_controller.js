@@ -1,28 +1,28 @@
-const cursoDao=require('../dao/curso_dao')
+const employeeDao=require('../dao/employee_dao')
 
 function getAll(request,response){
-    cursoDao.getAll().then((d)=>{
+    employeeDao.getAll().then((d)=>{
         response.send(d);
-    })    
+    })
 };
 
 function findyById(request,response){
     var id = request.params.id
-    cursoDao.findyById(id).then((curso)=>{
-        response.send(curso[0]);
+    employeeDao.findyById(id).then((employee)=>{
+        response.send(employee[0]);
     })    
 };
 
 function create(request,response){
     var dados= request.body
     console.log(dados)
-    cursoDao.create(dados).then((d)=>{
+    employeeDao.create(dados).then((d)=>{
         console.log(d[0])
         var id = d[0]['insertId']
             console.log(id)
 
-        cursoDao.findyById(id).then((curso)=>{
-            response.send(curso[0]);
+        employeeDao.findyById(id).then((employee)=>{
+            response.send(employee[0]);
         });
     })  
 };
@@ -30,16 +30,16 @@ function create(request,response){
 function update(request,response){
     var id = request.params.id
     var dados = request.body
-    cursoDao.update(id,dados).then((curso)=> {
-        cursoDao.findyById(id).then((curso=> {
-        response.send(curso[0]);
+    employeeDao.update(id,dados).then((employee)=> {
+        employeeDao.findyById(id).then((employee=> {
+        response.send(employee[0]);
         })); 
     });
 };
 
 function remove(request,response){
     var id = request.params.id
-    cursoDao.remove(id).then(()=>{
+    employeeDao.remove(id).then(()=>{
         response.send([]);
     });
 };
